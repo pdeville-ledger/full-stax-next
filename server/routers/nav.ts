@@ -1,5 +1,4 @@
 import { GraphqlParams } from "@shopify/shopify-api/lib/clients/types";
-import { Products } from "pages/products";
 import { storefront } from "server/shopify";
 import { procedure } from "server/trpc";
 import { CardBrand } from "shopify-storefront-api-typings";
