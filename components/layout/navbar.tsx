@@ -11,7 +11,7 @@ const LedgerLogo = () => {
     <a
       href="https://www.ledger.com"
       title="Ledger"
-      className="md:w-[120px] w-[80px]"
+      className="w-[80px] md:w-[120px]"
     >
       <img
         className="w-auto"
@@ -42,12 +42,12 @@ const MenuPopOver = ({
     <Popover className="relative">
       <Popover.Button
         ref={setReferenceElement}
-        className="h-fit flex flex-row items-center"
+        className="flex h-fit flex-row items-center"
         onMouseEnter={() => setIsShowing(true)}
         onMouseLeave={() => setIsShowing(false)}
       >
         <span>{name}</span>
-        <ChevronDownIcon className="ui-open:rotate-180 ui-open:transform w-5 h-5" />
+        <ChevronDownIcon className="h-5 w-5 open:rotate-180 open:transform" />
       </Popover.Button>
       <Transition
         show={isShowing}
@@ -63,16 +63,16 @@ const MenuPopOver = ({
         <Popover.Panel
           ref={setPopperElement}
           className={cn(
-            "absolute left-full z-10 mt-3 -translate-x-1/2 transform px-4 sm:px-0 w-fit whitespace-nowrap  bg-white opacity-100 translate-y-0"
+            "absolute left-full z-10 mt-3 w-fit -translate-x-1/2 translate-y-0 transform whitespace-nowrap bg-white  px-4 opacity-100 sm:px-0"
           )}
         >
-          <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+          <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
             {links.map((link, index) => {
               return (
                 <li key={index} className="px-4 py-2">
                   <a
                     href="#"
-                    className="block py-2 pl-3 pr-4 rounded md:bg-transparent cursor-pointer md:p-0 "
+                    className="block cursor-pointer rounded py-2 pl-3 pr-4 md:bg-transparent md:p-0 "
                     aria-current="page"
                   >
                     {link.name}
@@ -94,19 +94,19 @@ const Navbar = () => {
     !data && <></>;
   }
   return (
-    <nav className="bg-transparent w-full max-h-[80px]">
+    <nav className="max-h-[80px] w-full bg-transparent">
       <div className="flex flex-wrap items-center justify-between p-2 md:p-4">
         <LedgerLogo />
         <button
           data-collapse-toggle="navbar-default"
           type="button"
-          className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          className="ml-3 inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 lg:hidden"
           aria-controls="navbar-default"
           aria-expanded="false"
         >
           <span className="sr-only">Open main menu</span>
           <svg
-            className="w-6 h-6"
+            className="h-6 w-6"
             aria-hidden="true"
             fill="currentColor"
             viewBox="0 0 20 20"
@@ -138,7 +138,7 @@ const Navbar = () => {
                 <li key={index}>
                   <a
                     href="#"
-                    className="block py-2 pl-3 pr-4 rounded md:bg-transparent cursor-pointer md:p-0 "
+                    className="block cursor-pointer rounded py-2 pl-3 pr-4 md:bg-transparent md:p-0 "
                     aria-current="page"
                   >
                     {link.name}

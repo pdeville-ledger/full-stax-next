@@ -1,5 +1,1 @@
-
-
-export const Products = () => {
-    
-}
+export const Products = () => {};

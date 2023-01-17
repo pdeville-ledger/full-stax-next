@@ -1,21 +1,21 @@
-import Head from "next/head"
-import Image from "next/image"
-import { Inter } from "@next/font/google"
-import styles from "../styles/Home.module.css"
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "@next/font/google";
+import styles from "../styles/Home.module.css";
 import { trpc } from "../utils/trpc";
 import Card, { ProductV2 } from "components/card";
 import { NextPageWithLayout } from "./_app";
 import { ReactElement } from "react";
 import Layout from "components/layout/layout";
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] });
 
-const Home: NextPageWithLayout = ()  => {
-  const {data, isLoading} = trpc.hello.useQuery({ text: "client" });
+const Home: NextPageWithLayout = () => {
+  const { data, isLoading } = trpc.hello.useQuery({ text: "client" });
   if (isLoading || !data) {
     return <div>Loading...</div>;
   }
-  const products = data.products as ProductV2[]
+  const products = data.products as ProductV2[];
   return (
     <>
       <Head>
@@ -29,22 +29,18 @@ const Home: NextPageWithLayout = ()  => {
           <p>{data.greeting}</p>
         </h1>
 
-        <div className="flex justify-center mx-12">
-            {products.map(product => (
-              <Card key={product.id}  product={product} />
-            ))}
+        <div className="mx-12 flex justify-center">
+          {products.map((product) => (
+            <Card key={product.id} product={product} />
+          ))}
         </div>
       </main>
     </>
-  )
-}
+  );
+};
 
 Home.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <Layout>
-      {page}
-    </Layout>
-  )
-}
+  return <Layout>{page}</Layout>;
+};
 
-export default Home
+export default Home;
