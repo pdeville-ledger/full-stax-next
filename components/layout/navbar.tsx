@@ -25,6 +25,7 @@ const LedgerLogo = () => {
 const MenuPopOver = ({
   name,
   links,
+  black,
 }: {
   name: string;
   links: {
@@ -32,6 +33,7 @@ const MenuPopOver = ({
     href: string;
   }[];
   href?: undefined;
+  black: boolean;
 }) => {
   let [referenceElement, setReferenceElement] =
     useState<HTMLButtonElement | null>();
@@ -63,7 +65,7 @@ const MenuPopOver = ({
         <Popover.Panel
           ref={setPopperElement}
           className={cn(
-            "absolute left-full z-10 mt-3 w-fit -translate-x-1/2 translate-y-0 transform whitespace-nowrap bg-white  px-4 opacity-100 sm:px-0"
+            "absolute left-full z-10 mt-3 w-fit -translate-x-1/2 translate-y-0 transform whitespace-nowrap bg-white px-4 text-black opacity-100 sm:px-0"
           )}
         >
           <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
@@ -87,14 +89,24 @@ const MenuPopOver = ({
   );
 };
 
-const Navbar = () => {
+interface NavProps {
+  black: boolean;
+}
+
+const Navbar = ({ black }: NavProps) => {
   const { data } = trpc.navRouter.navigation.useQuery();
 
+  console.log("nav", black);
   {
     !data && <></>;
   }
   return (
-    <nav className="max-h-[80px] w-full bg-transparent">
+    <nav
+      className={cn(
+        "max-h-[80px] w-full bg-transparent",
+        black ? "bg-black" : ""
+      )}
+    >
       <div className="flex flex-wrap items-center justify-between p-2 md:p-4">
         <LedgerLogo />
         <button
@@ -122,12 +134,16 @@ const Navbar = () => {
         <div className="hidden w-full lg:block lg:w-auto" id="navbar-default">
           <Popover.Group
             as="ul"
-            className="flex flex-col lg:flex-row lg:space-x-8 "
+            className={cn(
+              "flex flex-col lg:flex-row lg:space-x-8",
+              black ? "text-white" : "text-black"
+            )}
           >
             {data?.nav.header.navlinks.map((link, index) => {
               if (link.links) {
                 return (
                   <MenuPopOver
+                    black={black}
                     name={link.name}
                     links={link.links}
                     key={index}

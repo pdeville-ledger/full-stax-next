@@ -3,12 +3,14 @@ import Navbar from "./navbar";
 
 type LayoutProps = {
   children: JSX.Element;
+  black?: boolean;
 };
 
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ children, black }: LayoutProps) {
+  console.log("layout", black);
   return (
     <>
-      <Navbar />
+      <Navbar black={!!black} />
       <main>{children}</main>
       {/* <Footer /> */}
     </>
