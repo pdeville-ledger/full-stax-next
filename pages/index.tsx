@@ -5,17 +5,36 @@ import styles from "../styles/Home.module.css";
 import { trpc } from "../utils/trpc";
 import Card, { ProductV2 } from "components/card";
 import { NextPageWithLayout } from "./_app";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import Layout from "components/layout/layout";
+import { ProductService } from "services/shopify/product.service";
+import { GetServerSideProps } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const Home: NextPageWithLayout = () => {
-  const { data, isLoading } = trpc.hello.useQuery({ text: "client" });
-  if (isLoading || !data) {
-    return <div>Loading...</div>;
-  }
-  const products = data.products as ProductV2[];
+interface Props {
+  products?: ProductService.List;
+}
+
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context
+) => {
+  const products = await ProductService.getList();
+  console.log(products);
+  return {
+    props: {
+      products,
+    },
+  };
+};
+
+const Home: NextPageWithLayout<Props> = (props) => {
+  // const { data, isLoading } = trpc.hello.useQuery({ text: "client" });
+  //
+  console.log("props", props);
+  const { products } = props;
+
+  //const productsOld = data.products as ProductV2[];
   return (
     <>
       <Head>
@@ -26,11 +45,11 @@ const Home: NextPageWithLayout = () => {
       </Head>
       <main className={styles.main}>
         <h1 className="text-3xl font-bold underline">
-          <p>{data.greeting}</p>
+          <p>Salut</p>
         </h1>
 
         <div className="mx-12 flex justify-center">
-          {products.map((product) => (
+          {products?.products.map((product) => (
             <Card key={product.id} product={product} />
           ))}
         </div>

@@ -1,6 +1,7 @@
 import { Product } from "shopify-storefront-api-typings";
 import Image from "next/image";
 import { trpc } from "utils/trpc";
+import { ProductService } from "services/shopify/product.service";
 
 export interface ProductV2 extends Product {
   featuredImage: {
@@ -9,7 +10,7 @@ export interface ProductV2 extends Product {
 }
 
 interface Props {
-  product: ProductV2;
+  product: ProductService.ListItem;
 }
 
 const Card = ({ product }: Props) => {
@@ -23,11 +24,7 @@ const Card = ({ product }: Props) => {
     <div className="w-full max-w-sm rounded-lg bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
       <a href="#">
         <div className="relative rounded-t-lg p-8">
-          <Image
-            src={product?.featuredImage.url}
-            alt="Picture of the author"
-            fill
-          />
+          <Image src={product.image.src} alt="Picture of the author" fill />
         </div>
       </a>
       <div className="px-5 pb-5">
