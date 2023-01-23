@@ -1,8 +1,8 @@
 import { GraphQLClient } from "graphql-request";
 import { getSdk } from "./config/generated";
 
-const space = process.env.NEXT_PUBLIC_CONFLUENCE_SPACE_ID!;
-const accessToken = process.env.NEXT_PUBLIC_CONFLUENCE_ACCESS_TOKEN!;
+const space = process.env.CONFLUENCE_SPACE_ID!;
+const accessToken = process.env.CONFLUENCE_ACCESS_TOKEN!;
 
 export const client = new GraphQLClient(
   `https://graphql.contentful.com/content/v1/spaces/${space}`,

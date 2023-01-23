@@ -1,8 +1,8 @@
 const path = require("path");
 const envKit = require("env-kit");
 
-const space = envKit.get("NEXT_PUBLIC_CONFLUENCE_SPACE_ID");
-const accessToken = envKit.get("NEXT_PUBLIC_CONFLUENCE_ACCESS_TOKEN");
+const space = envKit.get("CONFLUENCE_SPACE_ID");
+const accessToken = envKit.get("CONFLUENCE_ACCESS_TOKEN");
 
 const generated = path.join(__dirname, "./generated.ts");
 const documents = path.join(__dirname, "../graphql/**/*.gql");

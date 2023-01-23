@@ -23,9 +23,3 @@ query getHomePage {
     }
   }
 }
-
-query getHomePageTitle {
-  homePage(id: "3d44S7X7HxdxhQUzDL1ozt") {
-    title
-  }
-}

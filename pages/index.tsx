@@ -42,7 +42,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 
 const Home: NextPageWithLayout<Props> = ({ products, homePageInfo }) => {
   // const { data, isLoading } = trpc.hello.useQuery({ text: "client" });
-
   const homePage = homePageInfo?.homePage;
   //const productsOld = data.products as ProductV2[];
   if (!homePage) return <></>;
