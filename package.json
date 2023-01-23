@@ -6,13 +6,16 @@
     "dev": "nps -s dev",
     "build": "nps -s build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.7",
     "@heroicons/react": "^2.0.13",
     "@next/font": "13.0.7",
     "@shopify/shopify-api": "^6.0.2",
+    "@storybook/addon-postcss": "^2.0.0",
     "@tanstack/react-query": "^4.20.4",
     "@trpc/client": "^10.7.0",
     "@trpc/next": "^10.7.0",
@@ -37,20 +40,32 @@
     "zod": "^3.20.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.20.12",
     "@graphql-codegen/cli": "^2.16.4",
     "@graphql-codegen/typescript": "^2.8.7",
     "@graphql-codegen/typescript-graphql-request": "^4.5.8",
     "@graphql-codegen/typescript-operations": "^2.5.12",
+    "@storybook/addon-actions": "^6.5.15",
+    "@storybook/addon-essentials": "^6.5.15",
+    "@storybook/addon-interactions": "^6.5.15",
+    "@storybook/addon-links": "^6.5.15",
+    "@storybook/builder-webpack5": "^6.5.15",
+    "@storybook/manager-webpack5": "^6.5.15",
+    "@storybook/react": "^6.5.15",
+    "@storybook/testing-library": "^0.0.13",
     "@types/node": "18.11.17",
     "@types/react": "18.0.26",
     "apollo": "^2.34.0",
     "autoprefixer": "^10.4.13",
+    "babel-loader": "^8.3.0",
+    "eslint-plugin-storybook": "^0.6.10",
     "eslint-plugin-tailwindcss": "^3.8.0",
     "nps": "^5.10.0",
     "nps-utils": "^1.7.0",
     "postcss": "^8.4.20",
     "prettier": "^2.8.3",
     "prettier-plugin-tailwindcss": "^0.2.1",
-    "tailwindcss": "^3.2.4"
+    "tailwindcss": "^3.2.4",
+    "typescript": "4.9.4"
   }
 }
