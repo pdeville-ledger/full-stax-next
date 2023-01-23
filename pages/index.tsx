@@ -27,7 +27,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   context
 ) => {
   const products = await ProductService.getList();
-  //console.log(products);
   const homePageInfo = await PageService.getHomePage();
 
   return {
