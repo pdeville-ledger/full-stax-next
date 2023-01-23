@@ -35,12 +35,12 @@ directive @connection(
 type Query {
   asset(id: String!, preview: Boolean, locale: String): Asset
   assetCollection(skip: Int = 0, limit: Int = 100, preview: Boolean, locale: String, where: AssetFilter, order: [AssetOrder]): AssetCollection
+  homePage(id: String!, preview: Boolean, locale: String): HomePage
+  homePageCollection(skip: Int = 0, limit: Int = 100, preview: Boolean, locale: String, where: HomePageFilter, order: [HomePageOrder]): HomePageCollection
   product(id: String!, preview: Boolean, locale: String): Product
   productCollection(skip: Int = 0, limit: Int = 100, preview: Boolean, locale: String, where: ProductFilter, order: [ProductOrder]): ProductCollection
   products(id: String!, preview: Boolean, locale: String): Products
   productsCollection(skip: Int = 0, limit: Int = 100, preview: Boolean, locale: String, where: ProductsFilter, order: [ProductsOrder]): ProductsCollection
-  homePage(id: String!, preview: Boolean, locale: String): HomePage
-  homePageCollection(skip: Int = 0, limit: Int = 100, preview: Boolean, locale: String, where: HomePageFilter, order: [HomePageOrder]): HomePageCollection
   nanoDrop(id: String!, preview: Boolean, locale: String): NanoDrop
   nanoDropCollection(skip: Int = 0, limit: Int = 100, preview: Boolean, locale: String, where: NanoDropFilter, order: [NanoDropOrder]): NanoDropCollection
   entryCollection(skip: Int = 0, limit: Int = 100, preview: Boolean, locale: String, where: EntryFilter, order: [EntryOrder]): EntryCollection
@@ -445,6 +445,117 @@ enum AssetOrder {
   sys_publishedVersion_DESC
 }
 
+"""
+Landing page of the shop [See type definition](https://app.contentful.com/spaces/n2r11c5r4ihf/content_types/homePage)
+"""
+type HomePage implements Entry {
+  sys: Sys!
+  contentfulMetadata: ContentfulMetadata!
+  linkedFrom(allowedLocales: [String]): HomePageLinkingCollections
+  slug(locale: String): String
+  title(locale: String): String
+  subTitle(locale: String): String
+  description(locale: String): HomePageDescription
+  listProductsCollection(skip: Int = 0, limit: Int = 100, preview: Boolean, locale: String): HomePageListProductsCollection
+  productsPresentationCollection(skip: Int = 0, limit: Int = 100, preview: Boolean, locale: String): HomePageProductsPresentationCollection
+}
+
+type HomePageLinkingCollections {
+  entryCollection(skip: Int = 0, limit: Int = 100, preview: Boolean, locale: String): EntryCollection
+}
+
+type HomePageDescription {
+  json: JSON!
+  links: HomePageDescriptionLinks!
+}
+
+type HomePageDescriptionLinks {
+  entries: HomePageDescriptionEntries!
+  assets: HomePageDescriptionAssets!
+}
+
+type HomePageDescriptionEntries {
+  inline: [Entry]!
+  hyperlink: [Entry]!
+  block: [Entry]!
+}
+
+type HomePageDescriptionAssets {
+  hyperlink: [Asset]!
+  block: [Asset]!
+}
+
+type HomePageListProductsCollection {
+  total: Int!
+  skip: Int!
+  limit: Int!
+  items: [Entry]!
+}
+
+type HomePageProductsPresentationCollection {
+  total: Int!
+  skip: Int!
+  limit: Int!
+  items: [Entry]!
+}
+
+type HomePageCollection {
+  total: Int!
+  skip: Int!
+  limit: Int!
+  items: [HomePage]!
+}
+
+input HomePageFilter {
+  sys: SysFilter
+  contentfulMetadata: ContentfulMetadataFilter
+  slug_exists: Boolean
+  slug: String
+  slug_not: String
+  slug_in: [String]
+  slug_not_in: [String]
+  slug_contains: String
+  slug_not_contains: String
+  title_exists: Boolean
+  title: String
+  title_not: String
+  title_in: [String]
+  title_not_in: [String]
+  title_contains: String
+  title_not_contains: String
+  subTitle_exists: Boolean
+  subTitle: String
+  subTitle_not: String
+  subTitle_in: [String]
+  subTitle_not_in: [String]
+  subTitle_contains: String
+  subTitle_not_contains: String
+  description_exists: Boolean
+  description_contains: String
+  description_not_contains: String
+  listProductsCollection_exists: Boolean
+  productsPresentationCollection_exists: Boolean
+  OR: [HomePageFilter]
+  AND: [HomePageFilter]
+}
+
+enum HomePageOrder {
+  slug_ASC
+  slug_DESC
+  title_ASC
+  title_DESC
+  subTitle_ASC
+  subTitle_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
 input ProductFilter {
   sys: SysFilter
   contentfulMetadata: ContentfulMetadataFilter
@@ -532,108 +643,6 @@ input ProductsFilter {
 enum ProductsOrder {
   title_ASC
   title_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-}
-
-"""
-Landing page of the shop [See type definition](https://app.contentful.com/spaces/n2r11c5r4ihf/content_types/homePage)
-"""
-type HomePage implements Entry {
-  sys: Sys!
-  contentfulMetadata: ContentfulMetadata!
-  linkedFrom(allowedLocales: [String]): HomePageLinkingCollections
-  slug(locale: String): String
-  title(locale: String): String
-  subTitle(locale: String): String
-  description(locale: String): HomePageDescription
-  listProductsCollection(skip: Int = 0, limit: Int = 100, preview: Boolean, locale: String): HomePageListProductsCollection
-}
-
-type HomePageLinkingCollections {
-  entryCollection(skip: Int = 0, limit: Int = 100, preview: Boolean, locale: String): EntryCollection
-}
-
-type HomePageDescription {
-  json: JSON!
-  links: HomePageDescriptionLinks!
-}
-
-type HomePageDescriptionLinks {
-  entries: HomePageDescriptionEntries!
-  assets: HomePageDescriptionAssets!
-}
-
-type HomePageDescriptionEntries {
-  inline: [Entry]!
-  hyperlink: [Entry]!
-  block: [Entry]!
-}
-
-type HomePageDescriptionAssets {
-  hyperlink: [Asset]!
-  block: [Asset]!
-}
-
-type HomePageListProductsCollection {
-  total: Int!
-  skip: Int!
-  limit: Int!
-  items: [Entry]!
-}
-
-type HomePageCollection {
-  total: Int!
-  skip: Int!
-  limit: Int!
-  items: [HomePage]!
-}
-
-input HomePageFilter {
-  sys: SysFilter
-  contentfulMetadata: ContentfulMetadataFilter
-  slug_exists: Boolean
-  slug: String
-  slug_not: String
-  slug_in: [String]
-  slug_not_in: [String]
-  slug_contains: String
-  slug_not_contains: String
-  title_exists: Boolean
-  title: String
-  title_not: String
-  title_in: [String]
-  title_not_in: [String]
-  title_contains: String
-  title_not_contains: String
-  subTitle_exists: Boolean
-  subTitle: String
-  subTitle_not: String
-  subTitle_in: [String]
-  subTitle_not_in: [String]
-  subTitle_contains: String
-  subTitle_not_contains: String
-  description_exists: Boolean
-  description_contains: String
-  description_not_contains: String
-  listProductsCollection_exists: Boolean
-  OR: [HomePageFilter]
-  AND: [HomePageFilter]
-}
-
-enum HomePageOrder {
-  slug_ASC
-  slug_DESC
-  title_ASC
-  title_DESC
-  subTitle_ASC
-  subTitle_DESC
   sys_id_ASC
   sys_id_DESC
   sys_publishedAt_ASC

@@ -29,13 +29,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   const products = await ProductService.getList();
   //console.log(products);
   const homePageInfo = await PageService.getHomePage();
-  const title = await ContentfulService.getHomePageTitle();
 
   return {
     props: {
       products,
       homePageInfo,
-      title,
     },
   };
 };

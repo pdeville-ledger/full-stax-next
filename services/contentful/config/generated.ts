@@ -287,6 +287,7 @@ export type HomePage = Entry & {
   description?: Maybe<HomePageDescription>;
   linkedFrom?: Maybe<HomePageLinkingCollections>;
   listProductsCollection?: Maybe<HomePageListProductsCollection>;
+  productsPresentationCollection?: Maybe<HomePageProductsPresentationCollection>;
   slug?: Maybe<Scalars['String']>;
   subTitle?: Maybe<Scalars['String']>;
   sys: Sys;
@@ -308,6 +309,15 @@ export type HomePageLinkedFromArgs = {
 
 /** Landing page of the shop [See type definition](https://app.contentful.com/spaces/n2r11c5r4ihf/content_types/homePage) */
 export type HomePageListProductsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+/** Landing page of the shop [See type definition](https://app.contentful.com/spaces/n2r11c5r4ihf/content_types/homePage) */
+export type HomePageProductsPresentationCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
@@ -373,6 +383,7 @@ export type HomePageFilter = {
   description_exists?: InputMaybe<Scalars['Boolean']>;
   description_not_contains?: InputMaybe<Scalars['String']>;
   listProductsCollection_exists?: InputMaybe<Scalars['Boolean']>;
+  productsPresentationCollection_exists?: InputMaybe<Scalars['Boolean']>;
   slug?: InputMaybe<Scalars['String']>;
   slug_contains?: InputMaybe<Scalars['String']>;
   slug_exists?: InputMaybe<Scalars['Boolean']>;
@@ -434,6 +445,14 @@ export enum HomePageOrder {
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC'
 }
+
+export type HomePageProductsPresentationCollection = {
+  __typename?: 'HomePageProductsPresentationCollection';
+  items: Array<Maybe<Entry>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
 
 export enum ImageFormat {
   Avif = 'AVIF',
@@ -1030,11 +1049,6 @@ export type GetHomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetHomePageQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePage', slug?: string | null, title?: string | null, description?: { __typename?: 'HomePageDescription', json: any } | null, listProductsCollection?: { __typename?: 'HomePageListProductsCollection', items: Array<{ __typename: 'HomePage' } | { __typename: 'NanoDrop' } | { __typename: 'Product' } | { __typename: 'Products', listProductsCollection?: { __typename?: 'ProductsListProductsCollection', total: number, items: Array<{ __typename?: 'HomePage' } | { __typename?: 'NanoDrop' } | { __typename?: 'Product', title?: string | null } | { __typename?: 'Products' } | null> } | null } | null> } | null } | null };
 
-export type GetHomePageTitleQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetHomePageTitleQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePage', title?: string | null } | null };
-
 
 export const GetHomePageDocument = gql`
     query getHomePage {
@@ -1062,13 +1076,6 @@ export const GetHomePageDocument = gql`
   }
 }
     `;
-export const GetHomePageTitleDocument = gql`
-    query getHomePageTitle {
-  homePage(id: "3d44S7X7HxdxhQUzDL1ozt") {
-    title
-  }
-}
-    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -1079,9 +1086,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     getHomePage(variables?: GetHomePageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetHomePageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetHomePageQuery>(GetHomePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getHomePage', 'query');
-    },
-    getHomePageTitle(variables?: GetHomePageTitleQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetHomePageTitleQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetHomePageTitleQuery>(GetHomePageTitleDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getHomePageTitle', 'query');
     }
   };
 }
