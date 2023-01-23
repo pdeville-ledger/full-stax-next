@@ -9,32 +9,44 @@ import { ReactElement, useEffect } from "react";
 import Layout from "components/layout/layout";
 import { ProductService } from "services/shopify/product.service";
 import { GetServerSideProps } from "next";
+import { PageService } from "services/contentful/page.service";
+import {
+  ContentfulService,
+  GetHomePageQuery,
+} from "services/contentful/contentful.service";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 
 const inter = Inter({ subsets: ["latin"] });
 
 interface Props {
   products?: ProductService.List;
+  homePageInfo: GetHomePageQuery;
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async (
   context
 ) => {
   const products = await ProductService.getList();
-  console.log(products);
+  //console.log(products);
+  const homePageInfo = await PageService.getHomePage();
+  const title = await ContentfulService.getHomePageTitle();
+
   return {
     props: {
       products,
+      homePageInfo,
+      title,
     },
   };
 };
 
-const Home: NextPageWithLayout<Props> = (props) => {
+const Home: NextPageWithLayout<Props> = ({ products, homePageInfo }) => {
   // const { data, isLoading } = trpc.hello.useQuery({ text: "client" });
-  //
-  console.log("props", props);
-  const { products } = props;
 
+  const homePage = homePageInfo?.homePage;
   //const productsOld = data.products as ProductV2[];
+  if (!homePage) return <></>;
+  console.log(homePage?.description);
   return (
     <>
       <Head>
@@ -43,17 +55,16 @@ const Home: NextPageWithLayout<Props> = (props) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <h1 className="text-3xl font-bold underline">
-          <p>Salut</p>
-        </h1>
+      <h1 className="text-3xl font-bold underline flex justify-center">
+        <p>{homePage?.title}</p>
+      </h1>
+      {documentToReactComponents(homePage?.description?.json)}
 
-        <div className="mx-12 flex justify-center">
-          {products?.products.map((product) => (
-            <Card key={product.id} product={product} />
-          ))}
-        </div>
-      </main>
+      <div className="mx-12 mt-12 grid grid-cols-3 gap-4 justify-center">
+        {products?.products.map((product) => (
+          <Card key={product.id} product={product} />
+        ))}
+      </div>
     </>
   );
 };

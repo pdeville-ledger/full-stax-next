@@ -117,7 +117,6 @@ export namespace ProductService {
     variables?: GetProductListQueryVariables
   ): Promise<List> {
     const { products } = await ShopifyService.getProductList(variables);
-    console.log("products after fetch =>", products);
     return getListFromPaginatedProductPage(products);
   }
 }

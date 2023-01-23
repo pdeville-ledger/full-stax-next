@@ -24,7 +24,12 @@ const Card = ({ product }: Props) => {
     <div className="w-full max-w-sm rounded-lg bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
       <a href="#">
         <div className="relative rounded-t-lg p-8">
-          <Image src={product.image.src} alt="Picture of the author" fill />
+          <Image
+            src={product.image.src}
+            alt="Picture of the author"
+            height={300}
+            width={400}
+          />
         </div>
       </a>
       <div className="px-5 pb-5">
