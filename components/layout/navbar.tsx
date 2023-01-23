@@ -1,10 +1,108 @@
 // components/layout.js
 
-import { trpc } from "utils/trpc";
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import { cn } from "utils/utils";
+
+const nav = {
+  header: {
+    navlinks: [
+      {
+        name: "Products",
+        links: [
+          {
+            name: "Ledger Stax",
+            href: "pages/ledger-stax",
+          },
+          {
+            name: "Ledger Nano X",
+            href: "pages/ledger-nano-x",
+          },
+          {
+            name: "Ledger Nano S Plus",
+            href: "pages/ledger-nano-s-plus",
+          },
+          {
+            name: "Compare our devices",
+            href: "pages/compare-hardware-wallet",
+          },
+        ],
+      },
+      {
+        name: "App and services",
+        links: [
+          {
+            name: "App and services Stax",
+            href: "pages/ledger-stax",
+          },
+          {
+            name: "App and services Nano X",
+            href: "pages/ledger-nano-x",
+          },
+          {
+            name: "App and services Nano S Plus",
+            href: "pages/ledger-nano-s-plus",
+          },
+          {
+            name: "App and services our devices",
+            href: "pages/compare-hardware-wallet",
+          },
+        ],
+      },
+      {
+        name: "Learn",
+        links: [
+          {
+            name: "Learn Stax",
+            href: "pages/ledger-stax",
+          },
+          {
+            name: "Learn Nano X",
+            href: "pages/ledger-nano-x",
+          },
+          {
+            name: "Learn Nano S Plus",
+            href: "pages/ledger-nano-s-plus",
+          },
+          {
+            name: "Learn our devices",
+            href: "pages/compare-hardware-wallet",
+          },
+        ],
+      },
+      {
+        name: "For Business",
+        links: [
+          {
+            name: "Business Stax",
+            href: "pages/ledger-stax",
+          },
+          {
+            name: "Business Nano X",
+            href: "pages/ledger-nano-x",
+          },
+          {
+            name: "Business Nano S Plus",
+            href: "pages/ledger-nano-s-plus",
+          },
+          {
+            name: "Business our devices",
+            href: "pages/compare-hardware-wallet",
+          },
+        ],
+      },
+      {
+        name: "For devlopers",
+        href: "developpers.ledger.com",
+      },
+      {
+        name: "Support",
+        href: "support.ledger.com",
+      },
+    ],
+  },
+};
 
 const LedgerLogo = () => {
   return (
@@ -94,12 +192,6 @@ interface NavProps {
 }
 
 const Navbar = ({ black }: NavProps) => {
-  const { data } = trpc.navRouter.navigation.useQuery();
-
-  console.log("nav", black);
-  {
-    !data && <></>;
-  }
   return (
     <nav
       className={cn(
@@ -139,7 +231,7 @@ const Navbar = ({ black }: NavProps) => {
               black ? "text-white" : "text-black"
             )}
           >
-            {data?.nav.header.navlinks.map((link, index) => {
+            {nav.header.navlinks.map((link, index) => {
               if (link.links) {
                 return (
                   <MenuPopOver

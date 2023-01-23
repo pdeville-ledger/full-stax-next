@@ -1,6 +1,5 @@
 import { Product } from "shopify-storefront-api-typings";
 import Image from "next/image";
-import { trpc } from "utils/trpc";
 import { ProductService } from "services/shopify/product.service";
 
 export interface ProductV2 extends Product {
@@ -14,11 +13,8 @@ interface Props {
 }
 
 const Card = ({ product }: Props) => {
-  const mutation = trpc.cartRouter.createCart.useMutation();
-
   const addProductToCart = () => {
     console.log("ici");
-    mutation.mutate({ products: [{ id: "23" }] });
   };
   return (
     <div className="w-full max-w-sm rounded-lg bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">

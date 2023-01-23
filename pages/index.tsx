@@ -2,7 +2,6 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "@next/font/google";
 import styles from "../styles/Home.module.css";
-import { trpc } from "../utils/trpc";
 import Card, { ProductV2 } from "components/card";
 import { NextPageWithLayout } from "./_app";
 import { ReactElement, useEffect } from "react";
@@ -38,7 +37,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 };
 
 const Home: NextPageWithLayout<Props> = ({ products, homePageInfo }) => {
-  // const { data, isLoading } = trpc.hello.useQuery({ text: "client" });
   const homePage = homePageInfo?.homePage;
   //const productsOld = data.products as ProductV2[];
   if (!homePage) return <></>;
