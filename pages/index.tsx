@@ -14,6 +14,7 @@ import {
   GetHomePageQuery,
 } from "services/contentful/contentful.service";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import HardWareWalletCard from "components/hardwareWalletCard";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,7 +41,6 @@ const Home: NextPageWithLayout<Props> = ({ products, homePageInfo }) => {
   const homePage = homePageInfo?.homePage;
   //const productsOld = data.products as ProductV2[];
   if (!homePage) return <></>;
-  console.log(homePage?.description);
   return (
     <>
       <Head>
@@ -50,15 +50,27 @@ const Home: NextPageWithLayout<Props> = ({ products, homePageInfo }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1 className="text-3xl font-bold underline flex justify-center">
-        <p>{homePage?.title}</p>
+        {homePage?.title}
       </h1>
-      {documentToReactComponents(homePage?.description?.json)}
 
-      <div className="mx-12 mt-12 grid grid-cols-3 gap-4 justify-center">
+      <div className="my-10 text-center m-auto max-w-[600px]">
+        {documentToReactComponents(homePage?.description?.json)}
+      </div>
+
+      <section className="py-8">
+        <h2 className="text-2xl text-center font-bold">HARDWARE WALLETS</h2>
+        <div className="grid justify-center px-4 md:grid-cols-3 mt-8 xl:px-48 md:px-24 sm:px-12 gap-4 md:gap-8 grid-cols-1">
+          {[1, 2, 3].map(() => (
+            <HardWareWalletCard />
+          ))}
+        </div>
+      </section>
+
+      {/* <div className="mx-12 mt-12 grid grid-cols-3 gap-4 justify-center">
         {products?.products.map((product) => (
           <Card key={product.id} product={product} />
         ))}
-      </div>
+      </div> */}
     </>
   );
 };
