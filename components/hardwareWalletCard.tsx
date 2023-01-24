@@ -62,8 +62,9 @@ const HardWareWalletCard = () => {
         Shipping by May 2023
       </div>
       <div className="">
-        {infos.map((info) => (
+        {infos.map((info, index) => (
           <div
+            key={index}
             className={cn(
               `bg-gray-300 mr-2 mb-2 rounded-sm w-fit float-left py-1 px-2`,
               info.striped ? "bg-gray-50 text-gray-200 line-through" : ""

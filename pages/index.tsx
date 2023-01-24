@@ -60,8 +60,8 @@ const Home: NextPageWithLayout<Props> = ({ products, homePageInfo }) => {
       <section className="py-8">
         <h2 className="text-2xl text-center font-bold">HARDWARE WALLETS</h2>
         <div className="grid justify-center px-4 md:grid-cols-3 mt-8 xl:px-48 md:px-24 sm:px-12 gap-4 md:gap-8 grid-cols-1">
-          {[1, 2, 3].map(() => (
-            <HardWareWalletCard />
+          {[1, 2, 3].map((i) => (
+            <HardWareWalletCard key={i} />
           ))}
         </div>
       </section>
