@@ -1,4 +1,8 @@
-import { ArrowRightIcon } from "@heroicons/react/20/solid";
+import {
+  ArrowRightIcon,
+  PaperAirplaneIcon,
+  TruckIcon,
+} from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { cn } from "utils/utils";
 
@@ -94,13 +98,18 @@ const HardWareWalletCard = () => {
         <div className="">{selectedVariant.name}</div>
       </div>
 
-      <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-row justify-between items-center mt-4">
         <button className="bg-[#f54021] py-4 px-8 text-xl rounded-full text-white hover:bg-orange-500 font-semibold">
           Add to cart
         </button>
-        <a className="flex flex-row  items-center justify-center gap-2 cursor-pointer font-semibold">
-          <span>Add to cart</span> <ArrowRightIcon className="h-4" />
+        <a className="flex flex-row items-center justify-center gap-2 cursor-pointer font-semibold">
+          <span>Add to cart</span> <ArrowRightIcon className="h-4 mr-8" />
         </a>
+      </div>
+
+      <div className="flex flex-row gap-2 items-center">
+        <TruckIcon className="h-6" />
+        <span>Free shipping</span>
       </div>
     </div>
   );

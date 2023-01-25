@@ -162,19 +162,13 @@ const MenuPopOver = ({
       >
         <Popover.Panel
           ref={setPopperElement}
-          className={cn(
-            "absolute left-full z-10 mt-3 w-fit -translate-x-1/2 translate-y-0 transform whitespace-nowrap bg-white px-4 text-black opacity-100 sm:px-0"
-          )}
+          className="absolute left-full z-10 w-fit -translate-x-1/2 translate-y-0 transform whitespace-nowrap bg-white px-4 text-black opacity-100 sm:px-0"
         >
-          <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
+          <div className="overflow-hidden rounded-sm shadow-lg ring-1 ring-black/5  mt-2 py-2  before:content-[''] before:border-l-[1px] before:border-t-[1px] before:bg-white before:-mt-[14px] before:h-2 before:ml-6 before:rotate-45 before:w-2 before:absolute">
             {links.map((link, index) => {
               return (
-                <li key={index} className="px-4 py-2">
-                  <a
-                    href="#"
-                    className="block cursor-pointer rounded py-2 pl-3 pr-4 md:bg-transparent md:p-0 "
-                    aria-current="page"
-                  >
+                <li key={index} className="py-3 px-8">
+                  <a href="#" className="" aria-current="page">
                     {link.name}
                   </a>
                 </li>
