@@ -3,7 +3,7 @@
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
-import { cn } from "utils/utils";
+import { cn } from "../../utils/utils";
 
 const nav = {
   header: {
@@ -186,6 +186,12 @@ interface NavProps {
 }
 
 const Navbar = ({ black }: NavProps) => {
+  // const { data } = trpc.navRouter.navigation.useQuery();
+
+  console.log("nav", black);
+  {
+    // !data && s<></>;
+  }
   return (
     <nav
       className={cn(
@@ -225,7 +231,7 @@ const Navbar = ({ black }: NavProps) => {
               black ? "text-white" : "text-black"
             )}
           >
-            {nav.header.navlinks.map((link, index) => {
+            {/* {data?.nav.header.navlinks.map((link, index) => {
               if (link.links) {
                 return (
                   <MenuPopOver
@@ -247,7 +253,7 @@ const Navbar = ({ black }: NavProps) => {
                   </a>
                 </li>
               );
-            })}
+            })} */}
           </Popover.Group>
         </div>
       </div>
