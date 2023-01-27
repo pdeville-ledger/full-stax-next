@@ -1,10 +1,108 @@
 // components/layout.js
 
-// import { trpc } from "../../utils/trpc";
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import { cn } from "../../utils/utils";
+
+const nav = {
+  header: {
+    navlinks: [
+      {
+        name: "Products",
+        links: [
+          {
+            name: "Ledger Stax",
+            href: "pages/ledger-stax",
+          },
+          {
+            name: "Ledger Nano X",
+            href: "pages/ledger-nano-x",
+          },
+          {
+            name: "Ledger Nano S Plus",
+            href: "pages/ledger-nano-s-plus",
+          },
+          {
+            name: "Compare our devices",
+            href: "pages/compare-hardware-wallet",
+          },
+        ],
+      },
+      {
+        name: "App and services",
+        links: [
+          {
+            name: "App and services Stax",
+            href: "pages/ledger-stax",
+          },
+          {
+            name: "App and services Nano X",
+            href: "pages/ledger-nano-x",
+          },
+          {
+            name: "App and services Nano S Plus",
+            href: "pages/ledger-nano-s-plus",
+          },
+          {
+            name: "App and services our devices",
+            href: "pages/compare-hardware-wallet",
+          },
+        ],
+      },
+      {
+        name: "Learn",
+        links: [
+          {
+            name: "Learn Stax",
+            href: "pages/ledger-stax",
+          },
+          {
+            name: "Learn Nano X",
+            href: "pages/ledger-nano-x",
+          },
+          {
+            name: "Learn Nano S Plus",
+            href: "pages/ledger-nano-s-plus",
+          },
+          {
+            name: "Learn our devices",
+            href: "pages/compare-hardware-wallet",
+          },
+        ],
+      },
+      {
+        name: "For Business",
+        links: [
+          {
+            name: "Business Stax",
+            href: "pages/ledger-stax",
+          },
+          {
+            name: "Business Nano X",
+            href: "pages/ledger-nano-x",
+          },
+          {
+            name: "Business Nano S Plus",
+            href: "pages/ledger-nano-s-plus",
+          },
+          {
+            name: "Business our devices",
+            href: "pages/compare-hardware-wallet",
+          },
+        ],
+      },
+      {
+        name: "For devlopers",
+        href: "developpers.ledger.com",
+      },
+      {
+        name: "Support",
+        href: "support.ledger.com",
+      },
+    ],
+  },
+};
 
 const LedgerLogo = () => {
   return (
@@ -64,19 +162,13 @@ const MenuPopOver = ({
       >
         <Popover.Panel
           ref={setPopperElement}
-          className={cn(
-            "absolute left-full z-10 mt-3 w-fit -translate-x-1/2 translate-y-0 transform whitespace-nowrap bg-white px-4 text-black opacity-100 sm:px-0"
-          )}
+          className="absolute left-full z-10 w-fit -translate-x-1/2 translate-y-0 transform whitespace-nowrap bg-white px-4 text-black opacity-100 sm:px-0"
         >
-          <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
+          <div className="overflow-hidden rounded-sm shadow-lg ring-1 ring-black/5  mt-2 py-2  before:content-[''] before:border-l-[1px] before:border-t-[1px] before:bg-white before:-mt-[14px] before:h-2 before:ml-6 before:rotate-45 before:w-2 before:absolute">
             {links.map((link, index) => {
               return (
-                <li key={index} className="px-4 py-2">
-                  <a
-                    href="#"
-                    className="block cursor-pointer rounded py-2 pl-3 pr-4 md:bg-transparent md:p-0 "
-                    aria-current="page"
-                  >
+                <li key={index} className="py-3 px-8">
+                  <a href="#" className="" aria-current="page">
                     {link.name}
                   </a>
                 </li>

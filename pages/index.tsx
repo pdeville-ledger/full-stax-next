@@ -2,39 +2,45 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "@next/font/google";
 import styles from "../styles/Home.module.css";
-import { trpc } from "../utils/trpc";
 import Card, { ProductV2 } from "components/card";
 import { NextPageWithLayout } from "./_app";
 import { ReactElement, useEffect } from "react";
 import Layout from "components/layout/layout";
 import { ProductService } from "services/shopify/product.service";
 import { GetServerSideProps } from "next";
+import { PageService } from "services/contentful/page.service";
+import {
+  ContentfulService,
+  GetHomePageQuery,
+} from "services/contentful/contentful.service";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import HardWareWalletCard from "components/hardwareWalletCard";
 
 const inter = Inter({ subsets: ["latin"] });
 
 interface Props {
   products?: ProductService.List;
+  homePageInfo: GetHomePageQuery;
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async (
   context
 ) => {
   const products = await ProductService.getList();
-  console.log(products);
+  const homePageInfo = await PageService.getHomePage();
+
   return {
     props: {
       products,
+      homePageInfo,
     },
   };
 };
 
-const Home: NextPageWithLayout<Props> = (props) => {
-  // const { data, isLoading } = trpc.hello.useQuery({ text: "client" });
-  //
-  console.log("props", props);
-  const { products } = props;
-
+const Home: NextPageWithLayout<Props> = ({ products, homePageInfo }) => {
+  const homePage = homePageInfo?.homePage;
   //const productsOld = data.products as ProductV2[];
+  if (!homePage) return <></>;
   return (
     <>
       <Head>
@@ -43,17 +49,28 @@ const Home: NextPageWithLayout<Props> = (props) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <h1 className="text-3xl font-bold underline">
-          <p>Salut</p>
-        </h1>
+      <h1 className="text-3xl font-bold underline flex justify-center">
+        {homePage?.title}
+      </h1>
 
-        <div className="mx-12 flex justify-center">
-          {products?.products.map((product) => (
-            <Card key={product.id} product={product} />
+      <div className="my-10 text-center m-auto max-w-[600px]">
+        {documentToReactComponents(homePage?.description?.json)}
+      </div>
+
+      <section className="py-8">
+        <h2 className="text-2xl text-center font-bold">HARDWARE WALLETS</h2>
+        <div className="grid justify-center px-4 md:grid-cols-3 mt-8 xl:px-48 md:px-24 sm:px-12 gap-4 md:gap-8 grid-cols-1">
+          {[1, 2, 3].map((i) => (
+            <HardWareWalletCard key={i} />
           ))}
         </div>
-      </main>
+      </section>
+
+      {/* <div className="mx-12 mt-12 grid grid-cols-3 gap-4 justify-center">
+        {products?.products.map((product) => (
+          <Card key={product.id} product={product} />
+        ))}
+      </div> */}
     </>
   );
 };

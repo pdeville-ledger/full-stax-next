@@ -1,0 +1,25 @@
+query getHomePage {
+  homePage(id: "3d44S7X7HxdxhQUzDL1ozt") {
+    slug
+    title
+
+    description {
+      json
+    }
+    listProductsCollection {
+      items {
+        __typename
+        ... on Products {
+          listProductsCollection {
+            total
+            items {
+              ... on Product {
+                title
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
